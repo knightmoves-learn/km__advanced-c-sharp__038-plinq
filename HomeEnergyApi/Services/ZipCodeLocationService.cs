@@ -6,18 +6,38 @@ namespace HomeEnergyApi.Services
     public class ZipCodeLocationService
     {
         private HttpClient httpClient;
+        private readonly IMemoryCache cache;
+        private readonly ILogger<ZipCodeLocationService> logger;
+        private const string CacheKey = "CachedZipCodeLocation";
 
-        public ZipCodeLocationService(HttpClient httpClient)
+        public ZipCodeLocationService(
+            HttpClient httpClient,
+            IMemoryCache cache,
+            ILogger<ZipCodeLocationService> logger)
         {
             httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("HomeEnergyApi/1.0");
             this.httpClient = httpClient;
+            this.cache = cache;
+            this.logger = logger;
         }
 
         public async Task<Place> Report(int zipCode)
         {
+            if (cache.TryGetValue(CacheKey, out Place cachedPlace))
+            {
+                logger.LogInformation($"Returning place from cache for {zipCode}");
+                return cachedPlace;
+            }
+            else
+            {
+                logger.LogInformation($"Fetching place from api for {zipCode}");
+            }
+
             var response = await httpClient.GetFromJsonAsync<ZipLocationResponse>($"https://api.zippopotam.us/us/{zipCode}");
 
             Place place = response?.Places[0];
+
+            cache.Set(CacheKey, place, TimeSpan.FromSeconds(15));
 
             return place;
         }

@@ -130,6 +130,8 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+builder.Services.AddMemoryCache();
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
