@@ -23,13 +23,16 @@
 - Along with `using` statements being added, any packages needed for the assignment have been pre-installed for you, however in the future you may need to add these yourself
 
 ## Building toward CSTA Standards:
+- Decompose problems into smaller components through systematic analysis, using constructs such as procedures, modules, and/or objects (3A-AP-17) https://www.csteachers.org/page/standards
+- Create prototypes that use algorithms to solve computational problems by leveraging prior student knowledge and personal interests (3A-AP-13) https://www.csteachers.org/page/standards
+- Create artifacts by using procedures within a program, combinations of data and procedures, or independent but interrelated programs (3A-AP-18) https://www.csteachers.org/page/standards
+- Analyze a large-scale computational problem and identify generalizable patterns that can be applied to a solution (3B-AP-15) https://www.csteachers.org/page/standards
+- Construct solutions to problems using student-created components, such as procedures, modules and/or objects (3B-AP-14) https://www.csteachers.org/page/standards
 
-- Document design decisions using text, graphics, presentations, and/or demonstrations in the development of complex programs (3A-AP-23) https://www.csteachers.org/page/standards
-- Systematically design and develop programs for broad audiences by incorporating feedback from users (3A-AP-19) https://www.csteachers.org/page/standards
 
 ## Resources
-
-- https://swagger.io/
-- https://github.com/dotnet/aspnet-api-versioning/wiki/API-Documentation
+- https://learn.microsoft.com/en-us/dotnet/standard/parallel-programming/introduction-to-plinq
+- https://simple.wikipedia.org/wiki/Thread_(computer_science)
+- https://simple.wikipedia.org/wiki/Parallel_computing
 
 Copyright &copy; 2025 Knight Moves. All Rights Reserved.
