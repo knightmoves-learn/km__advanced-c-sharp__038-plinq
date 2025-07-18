@@ -2,8 +2,10 @@ public class FileTests
 {
     private static string programFilePath = @"../../../../HomeEnergyApi/Program.cs";
     private static string homeDtoFilePath = @"../../../../HomeEnergyApi/Dtos/HomeDto.cs";
+    private static string fileContentTestsPath = @"../../../../HomeEnergyApi/Services/ZipCodeLocationService.cs";
     private string programContent = File.ReadAllText(programFilePath);
     private string homeDtoContent = File.ReadAllText(homeDtoFilePath);
+    private string zipCodeLocationServiceContent = File.ReadAllText(fileContentTestsPath);
 
     [Fact]
     public void DoesProgramFileAddScopedServiceHomeRepository()
@@ -147,5 +149,13 @@ public class FileTests
         bool containsSingletonValueHasher = programContent.Contains("builder.Services.AddSingleton<ValueEncryptor>();");
         Assert.True(containsSingletonValueHasher,
             "HomeEnergyApi/Program.cs does not add a value encryptor singleton service");
+    }
+
+    [Fact]
+    public void DoesZipCodeLocationServiceExecuteAsParallel()
+    {
+        bool containsAsParallel = zipCodeLocationServiceContent.Contains(".AsParallel()");
+        Assert.True(containsAsParallel,
+            "HomeEnergyApi/Services/ZipCodeLocationService.cs does not execute the LINQ query using AsParallel()");
     }
 }

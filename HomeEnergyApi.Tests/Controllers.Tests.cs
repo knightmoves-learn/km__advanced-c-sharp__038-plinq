@@ -305,9 +305,13 @@ public class ControllersTests
         await client.SendAsync(sendRequest);
 
         var logs = _factory.LoggerProvider.Logs;
+        string logstr = string.Join("\n", logs.Select(log => $"{log.LogLevel}: {log.Message}"));
         Assert.Contains(logs, log =>
             log.LogLevel == LogLevel.Information &&
             log.Message.Contains("Fetching place from api for"));
+        Assert.Contains(logs, log => 
+            log.LogLevel == LogLevel.Information &&
+            log.Message.Contains("State from API: Iowa"));
     }
 
     [Theory, TestPriority(15)]
