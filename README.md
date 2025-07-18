@@ -7,21 +7,14 @@
 
 ## Instructions
 
-- In `HomeEnergyApi/Program.cs`
-  - Add the line `builder.Services.AddMemoryCache()` right before `builder.Build()` is called
-
 - In `HomeEnergyApi/Services/ZipCodeLocationService.cs`
-  - On `ZipCodeLocationService`
-    - Add a private readonly property of type `IMemoryCache`
-    - Add a private readonly property of type `ILogger<ZipCodeLocationService>`
-    - Add a private const property of type `string` named `CacheKey` with the value `"CachedZipCodeLocation"`
-    - Add the newly created properties of types `IMemoryCache` and `ILogger<ZipLocationService>` to the argument list and assign them in the constructor
     - Modify the `Report()` method
-      - IF the result of calling `TryGetValue()` with the `string CacheKey` provided as an argument and an out value of type `Place` designated on the `IMemoryCache` returns true
-        - Call `LogInformation` on the `ILogger<ZipLocationService>` and supply the argument `$"Returning place from cache for {zipCode}"`
-        - Return the out value of type `Place`
-      - Otherwise, call `LogInformation` on the `ILogger<ZipLocationService>` and supply the argument `$"Fetching place from api for {zipCode}"`
-      - Before returning the variable `Place place` call `Set()` on the `IMemoryCache` with the arguments `CacheKey`, the `Place place` variable, and `TimeSpan.FromSeconds(15)`
+      - Create a new variable named `stateFromFluentLinqParallel` to hold the state from the `response`, set the value of this variable by calling executing the following fluent LINQ methods on `response.Places`
+        - WHERE the state is not null
+        - Execute in Parallel
+        - SELECT the `State` property
+        - Return as a list
+      - Immediately after, call `logger.LogInformation()` with the following argument `$"State from API: {stateFromFluentLinqParallel[0]}"`
 
 ## Additional Information
 
